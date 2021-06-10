@@ -1,8 +1,10 @@
 plugins {
     id 'java'
+    id 'maven-publish'
+    id 'signing'
 }
 
-group 'org.example'
+group 'ai.testvagrant.ekam.commons'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -22,9 +24,113 @@ dependencies {
     annotationProcessor('org.projectlombok:lombok:1.18.20')
     testImplementation('org.projectlombok:lombok:1.18.20')
     testAnnotationProcessor('org.projectlombok:lombok:1.18.20')
-
 }
 
 test {
     useTestNG()
+}
+
+task sourceJar(type: Jar) {
+    classifier "sources"
+    from sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier "javadoc"
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives jar
+    archives sourceJar
+    archives javadocJar
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            customizePom(pom)
+            groupId 'com.testvagrant.ekam'
+            artifactId 'ekam'
+            version '0.1.0-beta'
+
+            from components.java
+
+            artifact(sourceJar) {
+                classifier = 'sources'
+            }
+            artifact(javadocJar) {
+                classifier = 'javadoc'
+            }
+
+        }
+    }
+
+    repositories {
+        maven {
+            url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            credentials {
+                username System.getenv("sonatypeUsername")
+                password System.getenv("sonatypePassword")
+            }
+        }
+    }
+}
+
+def customizePom(pom) {
+    pom.withXml {
+        def root = asNode()
+
+        // eliminate test-scoped dependencies (no need in maven central POMs)
+        root.dependencies.removeAll { dep ->
+            dep.scope == "test"
+        }
+
+        // add all items necessary for maven central publication
+        root.children().last() + {
+            resolveStrategy = Closure.DELEGATE_FIRST
+
+            description 'Optimus Lite API to manage test devices and create appium driver based on platform'
+            name 'Optimus Lite'
+            url 'https://gitlab.com/testvagrant/automation-studio/ekam'
+            organization {
+                name 'com.testvagrant.optimus'
+                url 'https://gitlab.com/testvagrant/automation-studio'
+            }
+            issueManagement {
+                system 'GitLab'
+                url 'https://gitlab.com/testvagrant/automation-studio/ekam/issues'
+            }
+            licenses {
+                license {
+                    name 'MIT License'
+                    url 'https://gitlab.com/testvagrant/automation-studio/ekam/-/blob/master/LICENSE'
+                    distribution 'repo'
+                }
+            }
+            scm {
+                url 'https://gitlab.com/testvagrant/automation-studio/ekam'
+                connection 'https://gitlab.com/testvagrant/automation-studio/ekam.git'
+                developerConnection 'git@gitlab.com:testvagrant/automation-studio/ekam.git'
+            }
+            developers {
+                developer {
+                    name 'Sudarshan GS'
+                }
+                developer {
+                    name 'Krishnanand B'
+                }
+            }
+        }
+    }
+}
+
+model {
+    tasks.generatePomFileForMavenJavaPublication {
+        destination = file("$buildDir/generated-pom.xml")
+    }
+}
+
+signing {
+    sign publishing.publications
 }
