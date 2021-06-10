@@ -5,8 +5,8 @@ import ai.testvagrant.ekam.commons.cache.DataSetsProvider;
 import com.google.inject.AbstractModule;
 
 public class DataSetsModule extends AbstractModule {
-    @Override
-    protected void configure() {
-        bind(DataSetsCache.class).toProvider(DataSetsProvider.class).asEagerSingleton();
-    }
+  @Override
+  protected void configure() {
+    bind(DataSetsCache.class).toProvider(DataSetsProvider.class).asEagerSingleton();
+  }
 }

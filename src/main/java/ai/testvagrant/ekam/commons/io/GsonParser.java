@@ -21,7 +21,7 @@ public class GsonParser {
     return gson.toJson(object);
   }
 
-  public <T,Q> Q deserialize(T object, Class<Q> qClass) {
+  public <T, Q> Q deserialize(T object, Class<Q> qClass) {
     String serialize = serialize(object);
     return deserialize(serialize, qClass);
   }

@@ -24,6 +24,11 @@ public class LocaleClient implements Provider<LocaleClient> {
     return findFile(fileName, tClass, localePath);
   }
 
+  @Override
+  public LocaleClient get() {
+    return new LocaleClient();
+  }
+
   private static <T> T findFile(String fileName, Class<T> tClass, String localePath) {
     FileFinder fileFinder = new FileFinder(localePath);
     File file = fileFinder.find(fileName, ".json");
@@ -34,10 +39,5 @@ public class LocaleClient implements Provider<LocaleClient> {
       e.printStackTrace();
     }
     throw new RuntimeException("Cannot find locale");
-  }
-
-  @Override
-  public LocaleClient get() {
-    return new LocaleClient();
   }
 }

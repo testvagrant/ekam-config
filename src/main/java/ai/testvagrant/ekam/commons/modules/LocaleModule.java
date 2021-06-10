@@ -6,8 +6,8 @@ import com.google.inject.AbstractModule;
 
 public class LocaleModule extends AbstractModule {
 
-    @Override
-    protected void configure() {
-        bind(LocaleCache.class).toProvider(LocaleProvider.class).asEagerSingleton();
-    }
+  @Override
+  protected void configure() {
+    bind(LocaleCache.class).toProvider(LocaleProvider.class).asEagerSingleton();
+  }
 }

@@ -11,6 +11,7 @@ import java.util.Map;
 
 @Getter
 @Setter
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class Locale {
 
   private Map<String, LinkedTreeMap> localeDataSets;

@@ -1,4 +1,3 @@
 package ai.testvagrant.ekam.commons;
 
-public class Application {
-}
+public class Application {}

@@ -7,12 +7,12 @@ import java.util.Optional;
 
 public class FileFinder {
 
-  private String path;
+  private final String path;
   private boolean fileFound;
-  private List<File> allFiles;
+  private final List<File> allFiles;
   private File fileToSearch;
-  private List<File> matchingFiles;
-  private String env;
+  private final List<File> matchingFiles;
+  private final String env;
 
   public FileFinder() {
     this(System.getProperty("user.dir"));
@@ -25,18 +25,18 @@ public class FileFinder {
     matchingFiles = new ArrayList<>();
   }
 
-
   public List<File> find(String fileExtension) {
     collectFiles(new File(path), fileExtension);
     return allFiles;
   }
 
   public File find(String fileName, String fileExtension) {
-    if(env.isEmpty()) {
+    if (env.isEmpty()) {
       collectFile(new File(path), fileName, fileExtension);
     } else {
       collectFiles(new File(path), fileName, fileExtension);
-      Optional<File> first = matchingFiles.stream().filter(file -> file.getPath().contains(env)).findFirst();
+      Optional<File> first =
+          matchingFiles.stream().filter(file -> file.getPath().contains(env)).findFirst();
       fileToSearch = first.orElseThrow(() -> new RuntimeException("File not found"));
     }
     return fileToSearch;

@@ -16,8 +16,7 @@ public class LocaleProvider implements Provider<LocaleCache> {
 
   public LocaleCache load() {
     String dataSetsRootPath =
-        Objects.requireNonNull(this.getClass().getClassLoader().getResource("locale"))
-            .getPath();
+        Objects.requireNonNull(this.getClass().getClassLoader().getResource("locale")).getPath();
     ;
     List<File> files = new FileFinder(dataSetsRootPath).find(".json");
     LocaleCache localeCache = new LocaleCache();
@@ -28,9 +27,11 @@ public class LocaleProvider implements Provider<LocaleCache> {
                 new GsonParser().deserialize(new FileReader(file), Map.class);
             fileContents.forEach(
                 (key, value) -> {
-                  localeCache.put(file.getName().replaceAll(".json","").trim().toLowerCase(), key, value);
+                  localeCache.put(
+                      file.getName().replaceAll(".json", "").trim().toLowerCase(), key, value);
                 });
           } catch (Exception e) {
+            e.printStackTrace();
           }
         });
     return localeCache;

@@ -63,14 +63,27 @@ public abstract class SharedDataCache<Value> extends DataCache<Value> {
     }
   }
 
+  public boolean isAvailable(String key) {
+    return anyMatch(availableCache, key);
+  }
+
+  public boolean isEngaged(String key) {
+    return anyMatch(engagedCache, key);
+  }
+
+  public synchronized void release(String key) {
+    String finalKey = getFinalKey(engagedCache, key);
+    Value value = getValue(engagedCache, finalKey);
+    availableCache.put(finalKey, value);
+    engagedCache.invalidate(finalKey);
+  }
+
   protected <T> String getFinalKey(
       LoadingCache<String, Value> cache,
       String key,
       Predicate<Map.Entry<String, Value>> predicate) {
     boolean fullFledgedKey = cache.asMap().containsKey(key);
-    if (fullFledgedKey) {
-      return key;
-    } else {
+    if (!fullFledgedKey) {
       String finalKey = key;
       Optional<Map.Entry<String, Value>> finalEntry =
           cache.asMap().entrySet().stream()
@@ -80,8 +93,8 @@ public abstract class SharedDataCache<Value> extends DataCache<Value> {
       if (finalEntry.isPresent()) {
         key = finalEntry.get().getKey();
       }
-      return key;
     }
+    return key;
   }
 
   protected <T> String getFinalKey(
@@ -104,14 +117,6 @@ public abstract class SharedDataCache<Value> extends DataCache<Value> {
     }
   }
 
-  public boolean isAvailable(String key) {
-    return anyMatch(availableCache, key);
-  }
-
-  public boolean isEngaged(String key) {
-    return anyMatch(engagedCache, key);
-  }
-
   protected Value getValue(LoadingCache<String, Value> cache, String key) {
     String finalKey = getFinalKey(cache, key);
     return cache.getIfPresent(finalKey);
@@ -122,13 +127,6 @@ public abstract class SharedDataCache<Value> extends DataCache<Value> {
     Value value = getValue(availableCache, finalKey);
     engagedCache.put(finalKey, value);
     availableCache.invalidate(finalKey);
-  }
-
-  public synchronized void release(String key) {
-    String finalKey = getFinalKey(engagedCache, key);
-    Value value = getValue(engagedCache, finalKey);
-    availableCache.put(finalKey, value);
-    engagedCache.invalidate(finalKey);
   }
 
   @Override

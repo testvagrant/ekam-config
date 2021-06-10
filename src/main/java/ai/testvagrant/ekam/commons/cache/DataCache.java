@@ -46,16 +46,16 @@ public abstract class DataCache<Value> {
     throw new UnsupportedOperationException();
   }
 
+  public long size() {
+    return cache.size();
+  }
+
   protected boolean anyMatch(LoadingCache<String, Value> cache, Predicate<Value> predicate) {
     return cache.asMap().values().stream().anyMatch(predicate);
   }
 
   protected boolean anyMatch(LoadingCache<String, Value> cache, String key) {
     return cache.asMap().containsKey(key);
-  }
-
-  public long size() {
-    return cache.size();
   }
 
   protected CacheLoaderCondition<String, Value> cacheLoader() {
@@ -66,7 +66,7 @@ public abstract class DataCache<Value> {
       CacheLoaderCondition<String, Value> cacheLoaderCondition) {
     return new CacheLoader<String, Value>() {
       @Override
-      public Value load(String key) throws Exception {
+      public Value load(String key) {
         return cacheLoaderCondition.condition(key);
       }
     };

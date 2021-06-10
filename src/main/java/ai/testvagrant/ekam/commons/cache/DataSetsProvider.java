@@ -34,6 +34,11 @@ public class DataSetsProvider implements Provider<DataSetsCache> {
     return dataSetsCache;
   }
 
+  @Override
+  public DataSetsCache get() {
+    return load();
+  }
+
   private <T> void transformAsMap(DataSetsCache dataSetsCache, File file)
       throws FileNotFoundException {
     Map<String, T> dataSetMap = new GsonParser().deserialize(new FileReader(file), Map.class);
@@ -66,10 +71,5 @@ public class DataSetsProvider implements Provider<DataSetsCache> {
     } catch (FileNotFoundException fileNotFoundException) {
       fileNotFoundException.printStackTrace();
     }
-  }
-
-  @Override
-  public DataSetsCache get() {
-    return load();
   }
 }

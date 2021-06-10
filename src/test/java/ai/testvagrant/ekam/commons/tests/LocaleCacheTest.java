@@ -13,29 +13,25 @@ import org.testng.annotations.Test;
 @Guice(modules = LocaleModule.class)
 public class LocaleCacheTest {
 
-  @Inject LocaleCache localeCache;
+  @Inject private LocaleCache localeCache;
 
   @Test
   public void locateEn() throws NoSuchKeyException {
     System.setProperty("locale", "en");
-    Loc sample_locales = localeCache.get("sample_locales", Loc.class);
+    Locale sample_locales = localeCache.get("sample_locales", Locale.class);
     Assert.assertEquals(sample_locales.locale, "English");
   }
 
   @Test
   public void locateFr() throws NoSuchKeyException {
     System.setProperty("locale", "fr");
-    Loc sample_locales = localeCache.get("sample_locales", Loc.class);
+    Locale sample_locales = localeCache.get("sample_locales", Locale.class);
     Assert.assertEquals(sample_locales.locale, "French");
   }
 
-
-  @Getter @Setter
-  private class  Loc {
+  @Getter
+  @Setter
+  private static class Locale {
     private String locale;
-
   }
 }
-
-
-
