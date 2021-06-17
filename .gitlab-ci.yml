@@ -1,0 +1,9 @@
+image: "gradle:5.1-jdk8"
+stages:
+  - test
+
+configTests:
+  stage: test
+  script: ./gradlew clean build test
+
+
