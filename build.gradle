@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation('org.testng:testng:7.4.0')
+
+    //google
+    implementation('com.google.inject:guice:5.0.1')
+    //lombok
+    implementation('org.projectlombok:lombok:1.18.12')
+    annotationProcessor('org.projectlombok:lombok:1.18.12')
+    testImplementation('org.projectlombok:lombok:1.18.12')
+    testAnnotationProcessor('org.projectlombok:lombok:1.18.12')
+}
+
+test {
+    useTestNG()
+}
