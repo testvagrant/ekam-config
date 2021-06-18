@@ -5,5 +5,7 @@ stages:
 configTests:
   stage: test
   script: ./gradlew clean build test
+  except:
+    - release
 
 

@@ -24,6 +24,8 @@ dependencies {
     annotationProcessor('org.projectlombok:lombok:1.18.12')
     testImplementation('org.projectlombok:lombok:1.18.12')
     testAnnotationProcessor('org.projectlombok:lombok:1.18.12')
+
+    compileClasspath 'io.github.cdimascio:java-dotenv:5.2.2'
 }
 
 tasks.withType(Test) {
@@ -106,7 +108,7 @@ publishing {
         maven {
             url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
             credentials {
-                username System.getenv('sonatypeUsername')
+                username sonatypeUsername
                 password System.getenv('sonatypePassword')
             }
         }
