@@ -10,7 +10,7 @@ import lombok.Setter;
 public class Mobile {
     private String feed = "";
     private String target = "android";
-    private String hub = "browserstack";
+    private String hub = "";
 
 
     @Inject(optional = true)

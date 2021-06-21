@@ -4,8 +4,9 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.testvagrant.ekam.config.utils.EkamPropertyReader;
 import lombok.Getter;
+import lombok.Setter;
 
-@Getter
+@Getter @Setter
 public class Dashboard {
     private String dashboardUrl = "";
 

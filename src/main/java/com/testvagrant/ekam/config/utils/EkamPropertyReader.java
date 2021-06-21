@@ -6,12 +6,22 @@ public class EkamPropertyReader {
 
   public static String updateProperty(String property, String defaultValue) {
     String value = System.getProperty(property, "");
-    return value.isEmpty() ? defaultValue : value;
+    if(value.isEmpty() || value.equalsIgnoreCase("any")) {
+      System.setProperty(property, defaultValue);
+      return defaultValue;
+    } else {
+      return value;
+    }
   }
 
   public static boolean updateProperty(String property, boolean defaultValue) {
     boolean value = Boolean.parseBoolean(System.getProperty(property, "false"));
-    return value ? value : defaultValue;
+    if(value) {
+      return value;
+    } else {
+      System.setProperty(property, String.valueOf(defaultValue));
+      return defaultValue;
+    }
   }
 
   public static <T> T createInstance(T instance, Class<T> tClass) {

@@ -4,14 +4,16 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.testvagrant.ekam.config.utils.EkamPropertyReader;
 import lombok.Getter;
+import lombok.Setter;
 
 
-@Getter
+@Getter @Setter
 public class Web {
     private String feed = "";
     private String target = "chrome";
     private boolean headless = false;
-    private String hub = "browserstack";
+    private String hub = "";
+    private boolean launchSite = false;
 
     @Inject(optional = true)
     public void setFeed(@Named("web.feed") String feed) {
@@ -29,9 +31,23 @@ public class Web {
     }
 
     @Inject(optional = true)
+    public void setLaunchSite(@Named("web.launchsite") boolean launchSite) {
+        this.launchSite = EkamPropertyReader.updateProperty("web.launchsite", launchSite);
+    }
+
+    @Inject(optional = true)
     public void setHub(@Named("web.hub") String hub) {
         this.hub = EkamPropertyReader.updateProperty("web.hub", hub);
     }
+
+    public boolean isAny() {
+        return this.target.equalsIgnoreCase("any");
+    }
+
+    public boolean isRemote() {
+        return !this.hub.isEmpty();
+    }
+
 
     @Override
     public String toString() {
@@ -40,6 +56,7 @@ public class Web {
                 + ", \"target\":\"" + target + "\""
                 + ", \"headless\":\"" + headless + "\""
                 + ", \"hub\":\"" + hub + "\""
-                + "}";
+                + ", \"launchSite\":\"" + launchSite + "\""
+                + "}}";
     }
 }
