@@ -14,6 +14,7 @@ public class Mobile {
     private String deviceFilters = "";
     private String serverArgs = "";
     private String executables = "";
+    private boolean uploadApp = false;
 
 
     @Inject(optional = true)
@@ -44,6 +45,11 @@ public class Mobile {
     @Inject(optional = true)
     public void setExecutables(@Named("mobile.executables") String executables) {
         this.executables = EkamPropertyReader.updateProperty("mobile.executables", deviceFilters);;
+    }
+
+    @Inject(optional = true)
+    public void setUploadApp(@Named("mobile.remote.uploadapp") boolean uploadApp) {
+        this.uploadApp = EkamPropertyReader.updateProperty("mobile.remote.uploadapp", uploadApp);;
     }
 
     public boolean isAny() {
