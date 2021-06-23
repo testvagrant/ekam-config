@@ -16,6 +16,9 @@ public class Mobile {
     private String executables = "";
     private boolean uploadApp = false;
 
+    public Mobile() {
+        setTarget("android");
+    }
 
     @Inject(optional = true)
     public void setFeed(@Named("mobile.feed") String feed) {

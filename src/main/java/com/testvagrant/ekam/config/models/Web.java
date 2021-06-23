@@ -15,6 +15,10 @@ public class Web {
     private String hub = "";
     private boolean launchSite = false;
 
+    public Web() {
+        setTarget("chrome");
+    }
+
     @Inject(optional = true)
     public void setFeed(@Named("web.feed") String feed) {
         this.feed = EkamPropertyReader.updateProperty("web.feed", feed);

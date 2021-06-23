@@ -3,13 +3,14 @@ package com.testvagrant.ekam.config.models;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.testvagrant.ekam.config.utils.EkamPropertyReader;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 
-@Getter @Setter
+@Getter @Setter @AllArgsConstructor
 public class Ekam {
-    private String env = "";
+    private String env;
 
     private Mobile mobile;
 
@@ -18,6 +19,13 @@ public class Ekam {
     private Integrations integrations;
 
     private Dashboard dashboard;
+
+    private String locale;
+
+    public Ekam() {
+        setEnv("");
+        setLocale("en");
+    }
 
     @Inject(optional = true)
     public void setEnv(@Named("env") String env) {
@@ -42,6 +50,11 @@ public class Ekam {
     @Inject(optional = true)
     public void setDashboard(Dashboard dashboard) {
         this.dashboard = EkamPropertyReader.createInstance(dashboard, Dashboard.class);;
+    }
+
+    @Inject(optional = true)
+    public void setLocale(@Named("locale") String locale) {
+        this.locale = EkamPropertyReader.updateProperty("locale", locale);;
     }
 
     @Override
