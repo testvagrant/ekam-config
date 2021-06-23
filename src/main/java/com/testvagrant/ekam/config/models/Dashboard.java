@@ -1,18 +1,19 @@
 package com.testvagrant.ekam.config.models;
 
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
-import com.testvagrant.ekam.config.utils.EkamPropertyReader;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Properties;
+
+import static com.testvagrant.ekam.config.properties.ConfigPropertyReader.update;
+
 @Getter @Setter
-public class Dashboard {
+public class Dashboard extends Config {
     private String dashboardUrl = "";
 
-    @Inject(optional = true)
-    public void setDashboardUrl(@Named("dashboard.url") String dashboardUrl) {
-        this.dashboardUrl = EkamPropertyReader.updateProperty("dashboard.url", dashboardUrl);
+    public Dashboard(Properties properties) {
+        super(properties);
+        this.dashboardUrl = update(Keys.DASHBOARD.URL, "");
     }
 
     public boolean publishToDashboard() {

@@ -1,66 +1,56 @@
 package com.testvagrant.ekam.config.models;
 
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
-import com.testvagrant.ekam.config.utils.EkamPropertyReader;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Properties;
 
-@Getter @Setter
-public class Web {
-    private String feed = "";
-    private String target = "chrome";
-    private boolean headless = false;
-    private String hub = "";
-    private boolean launchSite = false;
+import static com.testvagrant.ekam.config.properties.ConfigPropertyReader.update;
 
-    public Web() {
-        setTarget("chrome");
-    }
+@Getter
+@Setter
+public class Web extends Config {
+  private String feed;
+  private String target;
+  private boolean headless;
+  private String hub;
+  private boolean launchSite;
 
-    @Inject(optional = true)
-    public void setFeed(@Named("web.feed") String feed) {
-        this.feed = EkamPropertyReader.updateProperty("web.feed", feed);
-    }
+  public Web(Properties webProperties) {
+    super(webProperties);
+    this.feed = update(Keys.Web.FEED, "");
+    this.target = update(Keys.Web.TARGET, "chrome");
+    this.headless = update(Keys.Web.HEADLESS, false);
+    this.launchSite = update(Keys.Web.LAUNCHSITE, false);
+    this.hub = update(Keys.Web.HUB, "");
+  }
 
-    @Inject(optional = true)
-    public void setTarget(@Named("web.target") String target) {
-        this.target = EkamPropertyReader.updateProperty("web.target", target);
-    }
+  public boolean isAny() {
+    return this.target.equalsIgnoreCase("any");
+  }
 
-    @Inject(optional = true)
-    public void setHeadless(@Named("web.headless") boolean headless) {
-        this.headless = EkamPropertyReader.updateProperty("web.headless", headless);
-    }
+  public boolean isRemote() {
+    return !this.hub.isEmpty();
+  }
 
-    @Inject(optional = true)
-    public void setLaunchSite(@Named("web.launchsite") boolean launchSite) {
-        this.launchSite = EkamPropertyReader.updateProperty("web.launchsite", launchSite);
-    }
-
-    @Inject(optional = true)
-    public void setHub(@Named("web.hub") String hub) {
-        this.hub = EkamPropertyReader.updateProperty("web.hub", hub);
-    }
-
-    public boolean isAny() {
-        return this.target.equalsIgnoreCase("any");
-    }
-
-    public boolean isRemote() {
-        return !this.hub.isEmpty();
-    }
-
-
-    @Override
-    public String toString() {
-        return "{"
-                + "\"feed\":\"" + feed + "\""
-                + ", \"target\":\"" + target + "\""
-                + ", \"headless\":\"" + headless + "\""
-                + ", \"hub\":\"" + hub + "\""
-                + ", \"launchSite\":\"" + launchSite + "\""
-                + "}}";
-    }
+  @Override
+  public String toString() {
+    return "{"
+        + "\"feed\":\""
+        + feed
+        + "\""
+        + ", \"target\":\""
+        + target
+        + "\""
+        + ", \"headless\":\""
+        + headless
+        + "\""
+        + ", \"hub\":\""
+        + hub
+        + "\""
+        + ", \"launchSite\":\""
+        + launchSite
+        + "\""
+        + "}";
+  }
 }
