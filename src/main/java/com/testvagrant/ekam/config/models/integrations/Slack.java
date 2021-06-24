@@ -1,12 +1,11 @@
 package com.testvagrant.ekam.config.models.integrations;
 
 import com.testvagrant.ekam.config.models.Config;
+import com.testvagrant.ekam.config.models.ConfigKeys;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Properties;
-
-import static com.testvagrant.ekam.config.properties.ConfigPropertyReader.update;
 
 @Getter @Setter
 public class Slack extends Config {
@@ -15,8 +14,8 @@ public class Slack extends Config {
 
     public Slack(Properties properties) {
         super(properties);
-        this.notify = update(Keys.Integrations.Slack.NOTIFY, false);
-        this.notifyMeEveryTime = update(Keys.Integrations.Slack.NOTIFY_EVERYTIME, false);
+        this.notify = update(ConfigKeys.Integrations.Slack.NOTIFY, false);
+        this.notifyMeEveryTime = update(ConfigKeys.Integrations.Slack.NOTIFY_EVERYTIME, false);
     }
 
     @Override

@@ -5,8 +5,6 @@ import lombok.Setter;
 
 import java.util.Properties;
 
-import static com.testvagrant.ekam.config.properties.ConfigPropertyReader.*;
-
 @Getter @Setter
 public class Mobile extends Config {
     private String feed;
@@ -20,13 +18,13 @@ public class Mobile extends Config {
 
     public Mobile(Properties mobileProperties) {
         super(mobileProperties);
-        this.feed = update(Keys.Mobile.FEED, "");
-        this.target = update(Keys.Mobile.TARGET, "android");
-        this.hub = update(Keys.Mobile.HUB, "");
-        this.deviceFilters = update(Keys.Mobile.FILTERS, "");
-        this.serverArgs = update(Keys.Mobile.SERVER_ARGS, "");
-        this.executables = update(Keys.Mobile.EXECUTABLES, "");
-        this.uploadApp = update(Keys.Mobile.REMOTE_UPLOAD_APP, false);
+        this.feed = update(ConfigKeys.Mobile.FEED, "");
+        this.target = update(ConfigKeys.Mobile.TARGET, "android");
+        this.hub = update(ConfigKeys.Mobile.HUB, "");
+        this.deviceFilters = update(ConfigKeys.Mobile.FILTERS, "");
+        this.serverArgs = update(ConfigKeys.Mobile.SERVER_ARGS, "");
+        this.executables = update(ConfigKeys.Mobile.EXECUTABLES, "");
+        this.uploadApp = update(ConfigKeys.Mobile.REMOTE_UPLOAD_APP, false);
     }
 
     public boolean isAny() {

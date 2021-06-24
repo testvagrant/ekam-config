@@ -1,53 +1,36 @@
 package com.testvagrant.ekam.config.models;
 
+import java.util.Objects;
 import java.util.Properties;
-
-import static com.testvagrant.ekam.config.properties.ConfigPropertyReader.read;
 
 public abstract class Config {
 
+    private Properties properties;
+
     public Config(Properties properties) {
-        read(properties);
+        this.properties = properties;
     }
 
-    public static class Keys {
-        public static class Ekam {
-            public static final String ENV = "env";
-            public static final String LOCALE = "locale";
+    public String update(String property, String defaultValue) {
+        return updateProperty(property, getValidProperty(properties.getProperty(property), defaultValue));
+    }
+
+    public boolean update(String property, boolean defaultValue) {
+        return Boolean.parseBoolean(updateProperty(property, getValidProperty(properties.getProperty(property), String.valueOf(defaultValue))));
+    }
+
+    public String updateProperty(String property, String defaultValue) {
+        String value = System.getProperty(property, "");
+        if(value.isEmpty() || value.equalsIgnoreCase("any")) {
+            if(Objects.isNull(defaultValue)) defaultValue = "";
+            System.setProperty(property, defaultValue);
+            return defaultValue;
+        } else {
+            return value;
         }
+    }
 
-        public static class Mobile {
-            public static final String FEED = "mobile.feed";
-            public static final String TARGET = "mobile.target";
-            public static final String HUB = "mobile.hub";
-            public static final String FILTERS = "mobile.filters";
-            public static final String SERVER_ARGS = "mobile.server.args";
-            public static final String EXECUTABLES = "mobile.executables";
-            public static final String REMOTE_UPLOAD_APP = "mobile.remote.uploadapp";
-        }
-
-        public static class Web {
-            public static final String FEED = "web.feed";
-            public static final String TARGET = "web.target";
-            public static final String HUB = "web.hub";
-            public static final String HEADLESS = "web.headless";
-            public static final String LAUNCHSITE = "web.launchsite";
-        }
-
-        public static class Integrations {
-            public static class Slack {
-                public static final String NOTIFY = "slack.notify";
-                public static final String NOTIFY_EVERYTIME = "slack.notify.everytime";
-            }
-
-            public static class JIRA {
-
-            }
-        }
-
-        public static class DASHBOARD {
-           public static final String URL = "dashboard.url";
-        }
-
+    public String getValidProperty(String value, String defaultValue) {
+        return Objects.isNull(value) ? defaultValue : value;
     }
 }

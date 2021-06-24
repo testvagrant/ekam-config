@@ -5,15 +5,13 @@ import lombok.Setter;
 
 import java.util.Properties;
 
-import static com.testvagrant.ekam.config.properties.ConfigPropertyReader.update;
-
 @Getter @Setter
 public class Dashboard extends Config {
     private String dashboardUrl = "";
 
     public Dashboard(Properties properties) {
         super(properties);
-        this.dashboardUrl = update(Keys.DASHBOARD.URL, "");
+        this.dashboardUrl = update(ConfigKeys.DASHBOARD.URL, "");
     }
 
     public boolean publishToDashboard() {

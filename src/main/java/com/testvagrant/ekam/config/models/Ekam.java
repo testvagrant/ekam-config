@@ -5,9 +5,8 @@ import lombok.Setter;
 
 import java.util.Properties;
 
-import static com.testvagrant.ekam.config.models.Config.Keys.Ekam.ENV;
-import static com.testvagrant.ekam.config.models.Config.Keys.Ekam.LOCALE;
-import static com.testvagrant.ekam.config.properties.ConfigPropertyReader.update;
+import static com.testvagrant.ekam.config.models.ConfigKeys.Ekam.ENV;
+import static com.testvagrant.ekam.config.models.ConfigKeys.Ekam.LOCALE;
 
 @Getter
 @Setter

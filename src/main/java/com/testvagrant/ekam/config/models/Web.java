@@ -5,8 +5,6 @@ import lombok.Setter;
 
 import java.util.Properties;
 
-import static com.testvagrant.ekam.config.properties.ConfigPropertyReader.update;
-
 @Getter
 @Setter
 public class Web extends Config {
@@ -18,11 +16,11 @@ public class Web extends Config {
 
   public Web(Properties webProperties) {
     super(webProperties);
-    this.feed = update(Keys.Web.FEED, "");
-    this.target = update(Keys.Web.TARGET, "chrome");
-    this.headless = update(Keys.Web.HEADLESS, false);
-    this.launchSite = update(Keys.Web.LAUNCHSITE, false);
-    this.hub = update(Keys.Web.HUB, "");
+    this.feed = update(ConfigKeys.Web.FEED, "");
+    this.target = update(ConfigKeys.Web.TARGET, "chrome");
+    this.headless = update(ConfigKeys.Web.HEADLESS, false);
+    this.launchSite = update(ConfigKeys.Web.LAUNCHSITE, false);
+    this.hub = update(ConfigKeys.Web.HUB, "");
   }
 
   public boolean isAny() {
