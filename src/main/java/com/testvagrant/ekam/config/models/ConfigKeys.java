@@ -1,8 +1,10 @@
 package com.testvagrant.ekam.config.models;
 
 public class ConfigKeys {
-  public static class Ekam {
+
+  public static class Locale {
     public static final String LOCALE = "locale";
+    public static final String LOCALE_DIR = "locale.dir";
   }
 
   public static class Mobile {
@@ -21,6 +23,22 @@ public class ConfigKeys {
     public static final String HUB = "web.hub";
     public static final String HEADLESS = "web.headless";
     public static final String LAUNCHSITE = "web.launchsite";
+  }
+
+  public static class Api {
+    public static final String HOSTS = "api.hosts";
+  }
+
+  public static class DB {
+    public static final String DRIVERS = "db.drivers";
+  }
+
+  public static class DATASETS {
+    public static final String DIR = "datasets.dir";
+  }
+
+  public static class Cloud {
+    public static final String DIR = "cloud.config.dir";
   }
 
   public static class Integrations {
@@ -42,5 +60,7 @@ public class ConfigKeys {
     public static final String WEB_ENV = "web.env";
     public static final String MOBILE_ENV = "mobile.env";
     public static final String DB_ENV = "db.env";
+    public static final String LOCALE_ENV = "locale.env";
+    public static final String DATASETS_ENV = "datasets.env";
   }
 }

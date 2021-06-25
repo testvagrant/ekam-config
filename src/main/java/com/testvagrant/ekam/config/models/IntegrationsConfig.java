@@ -10,7 +10,7 @@ import java.util.Properties;
 
 
 @Getter @Setter
-public class Integrations extends Config {
+public class IntegrationsConfig extends Config {
 
     @Inject(optional = true)
     private Slack slack;
@@ -18,7 +18,7 @@ public class Integrations extends Config {
     @Inject(optional = true)
     private Jira jira;
 
-    public Integrations(Properties properties) {
+    public IntegrationsConfig(Properties properties) {
         super(properties);
         this.slack = new Slack(properties);
         this.jira = new Jira(properties);

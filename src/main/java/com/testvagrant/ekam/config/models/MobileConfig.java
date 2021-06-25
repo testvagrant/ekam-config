@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.util.Properties;
 
 @Getter @Setter
-public class Mobile extends Config {
+public class MobileConfig extends Config {
     private String feed;
     private String target;
     private String hub;
@@ -16,7 +16,7 @@ public class Mobile extends Config {
     private boolean uploadApp;
 
 
-    public Mobile(Properties mobileProperties) {
+    public MobileConfig(Properties mobileProperties) {
         super(mobileProperties);
         this.feed = update(ConfigKeys.Mobile.FEED, "");
         this.target = update(ConfigKeys.Mobile.TARGET, "android");

@@ -6,10 +6,10 @@ import lombok.Setter;
 import java.util.Properties;
 
 @Getter @Setter
-public class Dashboard extends Config {
+public class DashboardConfig extends Config {
     private String dashboardUrl = "";
 
-    public Dashboard(Properties properties) {
+    public DashboardConfig(Properties properties) {
         super(properties);
         this.dashboardUrl = update(ConfigKeys.DASHBOARD.URL, "");
     }

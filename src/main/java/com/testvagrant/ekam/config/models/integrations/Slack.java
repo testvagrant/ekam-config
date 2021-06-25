@@ -23,6 +23,6 @@ public class Slack extends Config {
         return "{"
                 + "\"notify\":\"" + notify + "\""
                 + ", \"notifyMeEveryTime\":\"" + notifyMeEveryTime + "\""
-                + "}}";
+                + "}";
     }
 }

@@ -7,14 +7,14 @@ import java.util.Properties;
 
 @Getter
 @Setter
-public class Web extends Config {
+public class WebConfig extends Config {
   private String feed;
   private String target;
   private boolean headless;
   private String hub;
   private boolean launchSite;
 
-  public Web(Properties webProperties) {
+  public WebConfig(Properties webProperties) {
     super(webProperties);
     this.feed = update(ConfigKeys.Web.FEED, "");
     this.target = update(ConfigKeys.Web.TARGET, "chrome");
