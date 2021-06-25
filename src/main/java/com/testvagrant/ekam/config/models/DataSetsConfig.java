@@ -6,7 +6,7 @@ public class DataSetsConfig extends Config {
     private String dir;
     public DataSetsConfig(Properties properties) {
         super(properties);
-        this.dir = update(ConfigKeys.DATASETS.DIR, "data_sets");
+        this.dir = update(ConfigKeys.DATASETS.DIR, "");
     }
 
     @Override

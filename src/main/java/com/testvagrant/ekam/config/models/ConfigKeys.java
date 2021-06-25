@@ -4,7 +4,7 @@ public class ConfigKeys {
 
   public static class Locale {
     public static final String LOCALE = "locale";
-    public static final String LOCALE_DIR = "locale.dir";
+    public static final String DIR = "locale.dir";
   }
 
   public static class Mobile {

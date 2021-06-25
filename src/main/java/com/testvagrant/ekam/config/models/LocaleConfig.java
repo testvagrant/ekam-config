@@ -3,7 +3,7 @@ package com.testvagrant.ekam.config.models;
 import java.util.Properties;
 
 import static com.testvagrant.ekam.config.models.ConfigKeys.Locale.LOCALE;
-import static com.testvagrant.ekam.config.models.ConfigKeys.Locale.LOCALE_DIR;
+import static com.testvagrant.ekam.config.models.ConfigKeys.Locale.DIR;
 
 
 public class LocaleConfig extends Config {
@@ -12,7 +12,7 @@ public class LocaleConfig extends Config {
     public LocaleConfig(Properties properties) {
         super(properties);
         this.locale = update(LOCALE, "en");
-        this.dir = update(LOCALE_DIR, "locale");
+        this.dir = update(DIR, "");
     }
 
     @Override
