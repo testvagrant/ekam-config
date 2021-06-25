@@ -10,6 +10,8 @@ plugins {
 group 'com.testvagrant.ekam'
 version '1.0-SNAPSHOT'
 
+sourceCompatibility = 1.8
+
 repositories {
     mavenCentral()
 }
@@ -88,7 +90,7 @@ publishing {
             customizePom(pom)
             groupId 'com.testvagrant.ekam'
             artifactId 'ekam-config'
-            version '0.0.2-beta'
+            version '0.0.3-beta'
 
             from components.java
 
