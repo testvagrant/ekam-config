@@ -15,7 +15,7 @@ public class Dashboard extends Config {
     }
 
     public boolean publishToDashboard() {
-        return dashboardUrl.isEmpty();
+        return !dashboardUrl.isEmpty();
     }
 
     @Override

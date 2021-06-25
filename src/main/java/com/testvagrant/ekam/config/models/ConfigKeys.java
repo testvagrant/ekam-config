@@ -2,7 +2,6 @@ package com.testvagrant.ekam.config.models;
 
 public class ConfigKeys {
   public static class Ekam {
-    public static final String ENV = "env";
     public static final String LOCALE = "locale";
   }
 
@@ -35,5 +34,13 @@ public class ConfigKeys {
 
   public static class DASHBOARD {
     public static final String URL = "dashboard.url";
+  }
+
+  public static class Env {
+    public static final String BASE_ENV = "env";
+    public static final String API_ENV = "api.env";
+    public static final String WEB_ENV = "web.env";
+    public static final String MOBILE_ENV = "mobile.env";
+    public static final String DB_ENV = "db.env";
   }
 }

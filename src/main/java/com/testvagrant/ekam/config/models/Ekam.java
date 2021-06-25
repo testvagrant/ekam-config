@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import java.util.Properties;
 
-import static com.testvagrant.ekam.config.models.ConfigKeys.Ekam.ENV;
+import static com.testvagrant.ekam.config.models.ConfigKeys.Env.BASE_ENV;
 import static com.testvagrant.ekam.config.models.ConfigKeys.Ekam.LOCALE;
 
 @Getter
@@ -13,6 +13,7 @@ import static com.testvagrant.ekam.config.models.ConfigKeys.Ekam.LOCALE;
 public class Ekam extends Config {
   private String env;
   private Mobile mobile;
+  private Env environments;
   private Web web;
   private Integrations integrations;
   private Dashboard dashboard;
@@ -20,7 +21,8 @@ public class Ekam extends Config {
 
   public Ekam(Properties ekamProperties) {
     super(ekamProperties);
-    this.env = update(ENV, "");
+    this.env = update(BASE_ENV, "");
+    this.environments = new Env(ekamProperties, env);
     this.locale = update(LOCALE, "en");
     this.mobile = new Mobile(ekamProperties);
     this.web = new Web(ekamProperties);
