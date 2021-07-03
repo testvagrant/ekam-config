@@ -12,14 +12,14 @@ public class WebConfig extends Config {
   private String target;
   private boolean headless;
   private String hub;
-  private boolean launchSite;
+  private String launchUrl;
 
   public WebConfig(Properties webProperties) {
     super(webProperties);
     this.feed = update(ConfigKeys.Web.FEED, "");
     this.target = update(ConfigKeys.Web.TARGET, "chrome");
     this.headless = update(ConfigKeys.Web.HEADLESS, false);
-    this.launchSite = update(ConfigKeys.Web.LAUNCHSITE, false);
+    this.launchUrl = update(ConfigKeys.Web.URL, "");
     this.hub = update(ConfigKeys.Web.HUB, "");
   }
 
@@ -30,6 +30,8 @@ public class WebConfig extends Config {
   public boolean isRemote() {
     return !this.hub.isEmpty();
   }
+
+  public boolean launchSite() { return !launchUrl.isEmpty(); }
 
   @Override
   public String toString() {
@@ -47,7 +49,7 @@ public class WebConfig extends Config {
         + hub
         + "\""
         + ", \"launchSite\":\""
-        + launchSite
+        + launchUrl
         + "\""
         + "}";
   }

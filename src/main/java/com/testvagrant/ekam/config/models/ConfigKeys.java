@@ -22,7 +22,7 @@ public class ConfigKeys {
     public static final String TARGET = "web.target";
     public static final String HUB = "web.hub";
     public static final String HEADLESS = "web.headless";
-    public static final String LAUNCHSITE = "web.launchsite";
+    public static final String URL = "web.url";
   }
 
   public static class Api {
