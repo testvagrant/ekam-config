@@ -31,7 +31,9 @@ public class WebConfig extends Config {
     return !this.hub.isEmpty();
   }
 
-  public boolean launchSite() { return !launchUrl.isEmpty(); }
+  public boolean launchSite() {
+    return !launchUrl.isEmpty();
+  }
 
   @Override
   public String toString() {

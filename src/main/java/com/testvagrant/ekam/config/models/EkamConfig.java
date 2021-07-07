@@ -36,16 +36,26 @@ public class EkamConfig extends Config {
   @Override
   public String toString() {
     return "{"
-            + "\"mobile\":" + mobile
-            + ", \"environments\":" + environments
-            + ", \"web\":" + web
-            + ", \"integrations\":" + integrations
-            + ", \"dashboardConfig\":" + dashboardConfig
-            + ", \"locale\":" + locale
-            + ", \"db\":" + db
-            + ", \"apiConfig\":" + apiConfig
-            + ", \"dataSetsConfig\":" + dataSetsConfig
-            + ", \"cloudConfig\":" + cloudConfig
-            + "}";
+        + "\"mobile\":"
+        + mobile
+        + ", \"environments\":"
+        + environments
+        + ", \"web\":"
+        + web
+        + ", \"integrations\":"
+        + integrations
+        + ", \"dashboardConfig\":"
+        + dashboardConfig
+        + ", \"locale\":"
+        + locale
+        + ", \"db\":"
+        + db
+        + ", \"apiConfig\":"
+        + apiConfig
+        + ", \"dataSetsConfig\":"
+        + dataSetsConfig
+        + ", \"cloudConfig\":"
+        + cloudConfig
+        + "}";
   }
 }

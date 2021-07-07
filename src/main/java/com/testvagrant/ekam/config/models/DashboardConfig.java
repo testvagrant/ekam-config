@@ -5,23 +5,22 @@ import lombok.Setter;
 
 import java.util.Properties;
 
-@Getter @Setter
+@Getter
+@Setter
 public class DashboardConfig extends Config {
-    private String dashboardUrl = "";
+  private String dashboardUrl;
 
-    public DashboardConfig(Properties properties) {
-        super(properties);
-        this.dashboardUrl = update(ConfigKeys.DASHBOARD.URL, "");
-    }
+  public DashboardConfig(Properties properties) {
+    super(properties);
+    this.dashboardUrl = update(ConfigKeys.DASHBOARD.URL, "");
+  }
 
-    public boolean publishToDashboard() {
-        return !dashboardUrl.isEmpty();
-    }
+  public boolean publishToDashboard() {
+    return !dashboardUrl.isEmpty();
+  }
 
-    @Override
-    public String toString() {
-        return "{"
-                + "\"dashboardUrl\":\"" + dashboardUrl + "\""
-                + "}";
-    }
+  @Override
+  public String toString() {
+    return "{" + "\"dashboardUrl\":\"" + dashboardUrl + "\"" + "}";
+  }
 }

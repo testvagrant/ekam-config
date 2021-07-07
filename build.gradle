@@ -17,15 +17,19 @@ repositories {
 }
 
 dependencies {
-    implementation('org.testng:testng:7.4.0')
-
     //google
     implementation('com.google.inject:guice:5.0.1')
+
     //lombok
-    implementation('org.projectlombok:lombok:1.18.12')
-    annotationProcessor('org.projectlombok:lombok:1.18.12')
-    testImplementation('org.projectlombok:lombok:1.18.12')
-    testAnnotationProcessor('org.projectlombok:lombok:1.18.12')
+    implementation('org.projectlombok:lombok:1.18.20')
+    annotationProcessor('org.projectlombok:lombok:1.18.20')
+    testImplementation('org.projectlombok:lombok:1.18.20')
+    testAnnotationProcessor('org.projectlombok:lombok:1.18.20')
+
+    // Test Framework
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.8.0-M1')
+    testImplementation('org.junit.jupiter:junit-jupiter-engine:5.8.0-M1')
+    testImplementation('org.junit-pioneer:junit-pioneer:1.4.2')
 }
 
 tasks.withType(Test) {
@@ -63,9 +67,7 @@ tasks.withType(Test) {
 }
 
 test {
-    useTestNG() {
-        testLogging.showStandardStreams = true
-    }
+    useJUnitPlatform()
 }
 
 task sourceJar(type: Jar) {
@@ -90,7 +92,7 @@ publishing {
             customizePom(pom)
             groupId 'com.testvagrant.ekam'
             artifactId 'ekam-config'
-            version '0.0.4-beta'
+            version '0.0.5-beta'
 
             from components.java
 
@@ -108,8 +110,8 @@ publishing {
         maven {
             url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
             credentials {
-                username sonatypeUsername
-                password sonatypePassword
+                username System.getenv("sonatypeUsername")
+                password System.getenv("sonatypePassword")
             }
         }
     }
