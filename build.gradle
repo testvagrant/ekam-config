@@ -20,6 +20,9 @@ dependencies {
     implementation('com.google.inject:guice:5.0.1')
     implementation('com.google.code.gson:gson:2.8.7')
 
+    // Apache commons-io
+    implementation('commons-io:commons-io:2.10.0')
+
     //lombok
     implementation('org.projectlombok:lombok:1.18.20')
     annotationProcessor('org.projectlombok:lombok:1.18.20')
@@ -60,7 +63,7 @@ publishing {
             customizePom(pom)
             groupId 'com.testvagrant.ekam'
             artifactId 'ekam-commons'
-            version '0.0.6-beta'
+            version '0.0.7-beta'
 
             from components.java
 

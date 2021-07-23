@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 
 public class PortGenerator {
 
-  public static Integer aRandomOpenPortOnAllLocalInterfaces() {
+  public static Integer randomOpenPortOnAllLocalInterfaces() {
     try (ServerSocket socket = new ServerSocket(0); ) {
       return socket.getLocalPort();
     } catch (IOException e) {
