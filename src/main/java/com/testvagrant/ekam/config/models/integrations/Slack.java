@@ -10,24 +10,24 @@ import java.util.Properties;
 @Getter
 @Setter
 public class Slack extends Config {
-  private boolean notify;
-  private boolean notifyMeEveryTime;
+    private boolean notify;
+    private boolean notifyMeEveryTime;
 
-  public Slack(Properties properties) {
-    super(properties);
-    this.notify = update(ConfigKeys.Integrations.Slack.NOTIFY, false);
-    this.notifyMeEveryTime = update(ConfigKeys.Integrations.Slack.NOTIFY_EVERYTIME, false);
-  }
+    public Slack(Properties properties) {
+        super(properties);
+        this.notify = setProperty(ConfigKeys.Integrations.Slack.NOTIFY, false);
+        this.notifyMeEveryTime = setProperty(ConfigKeys.Integrations.Slack.NOTIFY_EVERYTIME, false);
+    }
 
-  @Override
-  public String toString() {
-    return "{"
-        + "\"notify\":\""
-        + notify
-        + "\""
-        + ", \"notifyMeEveryTime\":\""
-        + notifyMeEveryTime
-        + "\""
-        + "}";
-  }
+    @Override
+    public String toString() {
+        return "{"
+                + "\"notify\":\""
+                + notify
+                + "\""
+                + ", \"notifyMeEveryTime\":\""
+                + notifyMeEveryTime
+                + "\""
+                + "}";
+    }
 }
