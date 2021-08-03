@@ -12,6 +12,11 @@ public class ResourcePaths {
   public static final String TEST_RESOURCES =
       String.valueOf(new PathBuilder(SRC_ROOT).append("test").append("resources"));
 
+  public static final String MAIN_RESOURCES =
+      String.valueOf(new PathBuilder(SRC_ROOT).append("main").append("resources"));
+
+  public static final String[] RESOURCES = {TEST_RESOURCES, MAIN_RESOURCES};
+
   public static final String APP_DIR =
       String.valueOf(new PathBuilder(System.getProperty("user.dir")).append("app"));
 

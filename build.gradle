@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.testvagrant.ekam.commons'
-version '0.0.5-beta'
+version '0.0.6-beta'
 
 sourceCompatibility = 1.8
 
