@@ -31,6 +31,14 @@ public class ResourcePaths {
             : new PathBuilder(ResourcePaths.TEST_RESOURCES).append(value));
   }
 
+  public static String getPath(String rootPath, String property) {
+    String value = System.getProperty(property, "");
+    return String.valueOf(
+            value.isEmpty()
+                    ? new PathBuilder(rootPath)
+                    : new PathBuilder(rootPath).append(value));
+  }
+
   public static String getTestPath(String className, String testName) {
     return String.valueOf(
         new PathBuilder(EKAM_EXECUTION_TIMELINE).append(className).append(testName));

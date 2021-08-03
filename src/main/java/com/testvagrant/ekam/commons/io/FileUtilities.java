@@ -4,6 +4,9 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Optional;
 
 public class FileUtilities {
 
@@ -55,5 +58,24 @@ public class FileUtilities {
       throw new RuntimeException(
           String.format("Error writing to file: '%s'.\nError:\n%s", filePath, ex.getMessage()));
     }
+  }
+
+  public Optional<File> findResource(String[] paths, String resourceName, String env) {
+    return Arrays.stream(paths)
+        .filter(
+            path -> {
+              try {
+                File tempFile = new FileFinder(path, env).find(resourceName);
+                return Objects.nonNull(tempFile);
+              } catch (Exception e) {
+                return false;
+              }
+            })
+        .map(
+            path -> {
+              File tempFile = new FileFinder(path, env).find(resourceName);
+              return tempFile;
+            })
+        .findFirst();
   }
 }

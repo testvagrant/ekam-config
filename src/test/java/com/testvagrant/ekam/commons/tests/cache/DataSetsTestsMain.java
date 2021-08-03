@@ -4,16 +4,15 @@ import com.testvagrant.ekam.commons.data.DataSetsClient;
 import com.testvagrant.ekam.commons.dataclients.CredentialsDataClient;
 import com.testvagrant.ekam.commons.dataclients.DataClient;
 import com.testvagrant.ekam.commons.models.Credentials;
-import lombok.Getter;
-import lombok.Setter;
+import com.testvagrant.ekam.commons.models.Models;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.SetSystemProperty;
 
 import java.util.List;
 
-@SetSystemProperty(key = "datasets.dir", value = "data_sets")
-public class DataSetsTests extends CacheTestBase {
+@SetSystemProperty(key = "datasets.dir", value = "data_sets_main")
+public class DataSetsTestsMain extends CacheTestBase {
 
   @Test
   public void shouldLockDataWhenSpecified() {
@@ -83,7 +82,7 @@ public class DataSetsTests extends CacheTestBase {
   @Test
   public void shouldGetListValuesForKey() {
     DataSetsClient dataClient = new DataSetsClient();
-    List<com.testvagrant.ekam.commons.models.Models> models = dataClient.getListValue("models", com.testvagrant.ekam.commons.models.Models.class);
+    List<Models> models = dataClient.getListValue("models", com.testvagrant.ekam.commons.models.Models.class);
     Assertions.assertEquals(models.size(), 2);
   }
 }
