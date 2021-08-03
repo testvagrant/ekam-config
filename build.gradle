@@ -92,7 +92,7 @@ publishing {
             customizePom(pom)
             groupId 'com.testvagrant.ekam'
             artifactId 'ekam-config'
-            version '0.0.5-beta'
+            version '1.0.1'
 
             from components.java
 
@@ -110,8 +110,8 @@ publishing {
         maven {
             url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
             credentials {
-                username System.getenv("sonatypeUsername")
-                password System.getenv("sonatypePassword")
+                username sonatypeUsername
+                password sonatypePassword
             }
         }
     }
@@ -132,26 +132,26 @@ def customizePom(pom) {
 
             description 'Ekam config to manage WEB|MOBILE|API run configuration'
             name 'Ekam Config'
-            url 'https://gitlab.com/testvagrant/automation-studio/ekam-studio/ekam-config'
+            url 'https://github.com/testvagrant/ekam-config'
             organization {
                 name 'com.testvagrant.optimus'
-                url 'https://gitlab.com/testvagrant/automation-studio/ekam-studio'
+                url 'https://github.com/testvagrant/ekam-config'
             }
             issueManagement {
                 system 'GitLab'
-                url 'https://gitlab.com/testvagrant/automation-studio/ekam-studio/ekam-config/issues'
+                url 'https://github.com/testvagrant/ekam-config/issues'
             }
             licenses {
                 license {
                     name 'MIT License'
-                    url 'https://gitlab.com/testvagrant/automation-studio/ekam-studio/ekam-config/-/blob/master/LICENSE'
+                    url 'https://github.com/testvagrant/ekam-config/-/blob/master/LICENSE'
                     distribution 'repo'
                 }
             }
             scm {
-                url 'https://gitlab.com/testvagrant/automation-studio/ekam-studio/ekam-config'
-                connection 'https://gitlab.com/testvagrant/automation-studio/ekam-studio/ekam-config.git'
-                developerConnection 'git@gitlab.com:testvagrant/automation-studio/ekam-studio/ekam-config.git'
+                url 'https://github.com/testvagrant/ekam-config'
+                connection 'https://github.com/testvagrant/ekam-config.git'
+                developerConnection 'git@github.com:testvagrant/ekam-config.git'
             }
             developers {
                 developer {

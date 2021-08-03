@@ -19,9 +19,10 @@ public abstract class Config {
         String value = System.getProperty(property, "");
         if (value.isEmpty() || value.equalsIgnoreCase("any")) {
             System.setProperty(property, propertyValue);
+            return propertyValue;
+        } else {
+            return value;
         }
-
-        return propertyValue;
     }
 
     public boolean setProperty(String property, boolean defaultValue) {
