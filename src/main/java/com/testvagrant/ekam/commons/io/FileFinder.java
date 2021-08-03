@@ -5,6 +5,7 @@ import com.google.common.io.Files;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,17 +23,23 @@ public class FileFinder {
   }
 
   public FileFinder(String path) {
-    this.path = path;
+    this.path = getPath(path);
     allFiles = new ArrayList<>();
     env = System.getProperty("env", "");
     matchingFiles = new ArrayList<>();
   }
 
   public FileFinder(String path, String env) {
-    this.path = path;
+    this.path = getPath(path);
     this.env = env;
     allFiles = new ArrayList<>();
     matchingFiles = new ArrayList<>();
+  }
+
+  private String getPath(String path) {
+    return Objects.isNull(path) || path.isEmpty()
+            ? ResourcePaths.ROOT
+            : path;
   }
 
   public List<File> findWithExtension(String fileExtension) {
@@ -57,7 +64,7 @@ public class FileFinder {
               () ->
                   new RuntimeException(
                       String.format(
-                          "File %s%s not found in %s env", fileName, fileExtension, env)));
+                          "File %s%s not found in %s env and path %s", fileName, fileExtension, env, path)));
     }
     return fileToSearch;
   }
@@ -98,6 +105,24 @@ public class FileFinder {
           }
         } else {
           collectFile(file, fileName, fileExtensionToSearch);
+        }
+      }
+    }
+  }
+
+  private void collectFile(File rootFile, String fileName) {
+    if (rootFile.exists() && rootFile.isDirectory()) {
+      File[] files = rootFile.listFiles();
+      assert files != null;
+      for (File file : files) {
+        if (!file.isDirectory()) {
+          fileFound = file.getName().equalsIgnoreCase(fileName);
+          if (fileFound) {
+            fileToSearch = file;
+            break;
+          }
+        } else {
+          collectFile(file, fileName);
         }
       }
     }

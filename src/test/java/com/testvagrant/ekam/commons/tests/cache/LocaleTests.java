@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.SetSystemProperty;
 
-@SetSystemProperty(key = "locale.dir", value = "locale")
+@SetSystemProperty(key = "locale.dir", value = "locale_main")
 public class LocaleTests {
 
   private final LocaleClient client;

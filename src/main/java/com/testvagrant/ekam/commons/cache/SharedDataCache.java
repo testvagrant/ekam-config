@@ -4,6 +4,7 @@ import com.google.common.cache.LoadingCache;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -25,8 +26,9 @@ public class SharedDataCache<Value> extends DataCache<Value> {
 
   public synchronized Optional<Value> get(String key, boolean lockRecord) {
     Value value = getValue(availableCache, key);
+    if(Objects.isNull(value)) return Optional.empty();
     if (lockRecord) lock(key);
-    return Optional.ofNullable(value);
+    return Optional.of(value);
   }
 
   protected synchronized void lock(String key) {

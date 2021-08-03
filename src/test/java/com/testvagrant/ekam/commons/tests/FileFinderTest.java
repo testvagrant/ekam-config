@@ -16,12 +16,22 @@ import java.util.Map;
 public class FileFinderTest {
 
   @Test
-  @SetSystemProperty(key = "env", value = "qa")
+  @SetSystemProperty(key = "env", value = "")
   public void shouldFindFileFromEnvIfSpecified() {
-    File hosts = new FileFinder(ResourcePaths.TEST_RESOURCES).find("hosts", ".json");
+    File hosts = new FileFinder(ResourcePaths.TEST_RESOURCES, "qa").find("hosts.json");
     Map<String, String> maps =
         new GsonParser()
             .deserialize(hosts.getPath(), new TypeToken<Map<String, String>>() {}.getType());
+    Assertions.assertEquals(maps.get("host"), "qa");
+  }
+
+  @Test
+  @SetSystemProperty(key = "env", value = "")
+  public void shouldFindFileWhenRootFileIsNotSpecified() {
+    File hosts = new FileFinder("", "qa").find("hosts.json");
+    Map<String, String> maps =
+            new GsonParser()
+                    .deserialize(hosts.getPath(), new TypeToken<Map<String, String>>() {}.getType());
     Assertions.assertEquals(maps.get("host"), "qa");
   }
 
