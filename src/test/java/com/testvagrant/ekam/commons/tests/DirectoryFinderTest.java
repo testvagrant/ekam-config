@@ -2,14 +2,13 @@ package com.testvagrant.ekam.commons.tests;
 
 import com.testvagrant.ekam.commons.io.DirectoryFinder;
 import org.junit.jupiter.api.Assertions;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-@Test
 public class DirectoryFinderTest {
 
-
+  @Test
   public void findDirectoryAnyWhere() {
     Optional<String> data_sets_main = new DirectoryFinder().find("data_sets_main");
     Assertions.assertTrue(data_sets_main.isPresent());
