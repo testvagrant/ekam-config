@@ -69,3 +69,113 @@ tasks.withType(Test) {
 test {
     useJUnitPlatform()
 }
+
+task sourceJar(type: Jar) {
+    classifier "sources"
+    from sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier "javadoc"
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives jar
+    archives sourceJar
+    archives javadocJar
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            customizePom(pom)
+            groupId 'com.testvagrant.ekam'
+            artifactId 'ekam-config'
+            version '1.0.1'
+
+            from components.java
+
+            artifact(sourceJar) {
+                classifier = 'sources'
+            }
+            artifact(javadocJar) {
+                classifier = 'javadoc'
+            }
+
+        }
+    }
+
+    repositories {
+        maven {
+            url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            credentials {
+                username sonatypeUsername
+                password sonatypePassword
+            }
+        }
+    }
+}
+
+def customizePom(pom) {
+    pom.withXml {
+        def root = asNode()
+
+        // eliminate test-scoped dependencies (no need in maven central POMs)
+        root.dependencies.removeAll { dep ->
+            dep.scope == "test"
+        }
+
+        // add all items necessary for maven central publication
+        root.children().last() + {
+            resolveStrategy = Closure.DELEGATE_FIRST
+
+            description 'Ekam config to manage WEB|MOBILE|API run configuration'
+            name 'Ekam Config'
+            url 'https://github.com/testvagrant/ekam-config'
+            organization {
+                name 'com.testvagrant.optimus'
+                url 'https://github.com/testvagrant/ekam-config'
+            }
+            issueManagement {
+                system 'GitLab'
+                url 'https://github.com/testvagrant/ekam-config/issues'
+            }
+            licenses {
+                license {
+                    name 'MIT License'
+                    url 'https://github.com/testvagrant/ekam-config/-/blob/master/LICENSE'
+                    distribution 'repo'
+                }
+            }
+            scm {
+                url 'https://github.com/testvagrant/ekam-config'
+                connection 'https://github.com/testvagrant/ekam-config.git'
+                developerConnection 'git@github.com:testvagrant/ekam-config.git'
+            }
+            developers {
+                developer {
+                    name 'Sudarshan GS'
+                }
+                developer {
+                    name 'Krishnanand B'
+                }
+            }
+        }
+    }
+}
+
+model {
+    tasks.generatePomFileForMavenJavaPublication {
+        destination = file("$buildDir/generated-pom.xml")
+    }
+}
+
+task runTests(type: Test) {
+    useTestNG()
+}
+
+
+signing {
+    sign publishing.publications
+}

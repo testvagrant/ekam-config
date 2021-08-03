@@ -32,6 +32,18 @@ public class EkamConfigTest {
 
     @Test
     @SetSystemProperty(key = "config", value = "remote")
+    @SetSystemProperty(key = "env", value = "")
+    @SetSystemProperty(key = "mobile.feed", value = "abracadabra")
+    public void whenConfigIsSetAndAPropertyIsOverRiddenEkamShouldReadTheOverRiddenProperty() {
+        EkamConfig ekamConfig =
+                com.google.inject.Guice.createInjector(new EkamConfigModule())
+                        .getInstance(EkamConfig.class);
+        Assertions.assertEquals(ekamConfig.getEnvironments().getEnv(), "staging");
+        Assertions.assertEquals(ekamConfig.getMobile().getFeed(), "abracadabra");
+    }
+
+    @Test
+    @SetSystemProperty(key = "config", value = "remote")
     public void whenConfigValueIsNotDefinedInPropertiesFileDefaultValueShouldBeLoaded() {
         EkamConfig ekamConfig =
                 com.google.inject.Guice.createInjector(new EkamConfigModule())
