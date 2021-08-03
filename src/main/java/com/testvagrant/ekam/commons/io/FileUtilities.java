@@ -60,22 +60,8 @@ public class FileUtilities {
     }
   }
 
-  public Optional<File> findResource(String[] paths, String resourceName, String env) {
-    return Arrays.stream(paths)
-        .filter(
-            path -> {
-              try {
-                File tempFile = new FileFinder(path, env).find(resourceName);
-                return Objects.nonNull(tempFile);
-              } catch (Exception e) {
-                return false;
-              }
-            })
-        .map(
-            path -> {
-              File tempFile = new FileFinder(path, env).find(resourceName);
-              return tempFile;
-            })
-        .findFirst();
+  public Optional<File> findResource(String resourceName, String env) {
+    File tempFile = new FileFinder("", env).find(resourceName);
+    return Optional.ofNullable(tempFile);
   }
 }
