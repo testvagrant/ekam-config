@@ -1,28 +1,24 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+
 plugins {
     id 'java'
     id 'maven-publish'
     id 'signing'
-    id "com.github.johnrengelman.shadow" version "5.2.0"
 }
 
-group 'com.testvagrant.ekam.commons'
-version '0.0.8-beta'
+group 'com.testvagrant.ekam'
+version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    mavenLocal()
 }
 
 dependencies {
     //google
-    implementation('com.google.guava:guava:30.1.1-jre')
     implementation('com.google.inject:guice:5.0.1')
-    implementation('com.google.code.gson:gson:2.8.7')
-
-    // Apache commons-io
-    implementation('commons-io:commons-io:20030203.000550')
 
     //lombok
     implementation('org.projectlombok:lombok:1.18.20')
@@ -34,8 +30,40 @@ dependencies {
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.8.0-M1')
     testImplementation('org.junit.jupiter:junit-jupiter-engine:5.8.0-M1')
     testImplementation('org.junit-pioneer:junit-pioneer:1.4.2')
+}
 
-    testImplementation('org.assertj:assertj-guava:3.4.0')
+tasks.withType(Test) {
+    testLogging {
+        events TestLogEvent.FAILED,
+                TestLogEvent.PASSED,
+                TestLogEvent.SKIPPED,
+                TestLogEvent.STANDARD_OUT
+        exceptionFormat TestExceptionFormat.FULL
+        showExceptions true
+        showCauses true
+        showStackTraces true
+
+        debug {
+            events TestLogEvent.STARTED,
+                    TestLogEvent.FAILED,
+                    TestLogEvent.PASSED,
+                    TestLogEvent.SKIPPED,
+                    TestLogEvent.STANDARD_ERROR,
+                    TestLogEvent.STANDARD_OUT
+            exceptionFormat TestExceptionFormat.FULL
+        }
+        info.events = debug.events
+        info.exceptionFormat = debug.exceptionFormat
+
+        afterSuite { desc, result ->
+            if (!desc.parent) { // will match the outermost suite
+                def output = "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} passed, ${result.failedTestCount} failed, ${result.skippedTestCount} skipped)"
+                def startItem = '|  ', endItem = '  |'
+                def repeatLength = startItem.length() + output.length() + endItem.length()
+                println('\n' + ('-' * repeatLength) + '\n' + startItem + output + endItem + '\n' + ('-' * repeatLength))
+            }
+        }
+    }
 }
 
 test {
@@ -63,8 +91,8 @@ publishing {
         mavenJava(MavenPublication) {
             customizePom(pom)
             groupId 'com.testvagrant.ekam'
-            artifactId 'ekam-commons'
-            version '0.0.9-beta'
+            artifactId 'ekam-config'
+            version '1.0.1'
 
             from components.java
 
@@ -102,28 +130,28 @@ def customizePom(pom) {
         root.children().last() + {
             resolveStrategy = Closure.DELEGATE_FIRST
 
-            description 'Ekam commons for data, file, i8 and cache management'
-            name 'Ekam Common'
-            url 'https://gitlab.com/testvagrant/automation-studio/ekam'
+            description 'Ekam config to manage WEB|MOBILE|API run configuration'
+            name 'Ekam Config'
+            url 'https://github.com/testvagrant/ekam-config'
             organization {
-                name 'com.testvagrant.ekam'
-                url 'https://gitlab.com/testvagrant/automation-studio'
+                name 'com.testvagrant.optimus'
+                url 'https://github.com/testvagrant/ekam-config'
             }
             issueManagement {
                 system 'GitLab'
-                url 'https://gitlab.com/testvagrant/automation-studio/ekam-commons/issues'
+                url 'https://github.com/testvagrant/ekam-config/issues'
             }
             licenses {
                 license {
                     name 'MIT License'
-                    url 'https://gitlab.com/testvagrant/automation-studio/ekam-studio/ekam-commons/-/blob/master/LICENSE'
+                    url 'https://github.com/testvagrant/ekam-config/-/blob/master/LICENSE'
                     distribution 'repo'
                 }
             }
             scm {
-                url 'https://gitlab.com/testvagrant/automation-studio/ekam-studio/ekam-commons'
-                connection 'https://gitlab.com/testvagrant/automation-studio/ekam-studio/ekam-commons.git'
-                developerConnection 'git@gitlab.com:testvagrant/automation-studio/ekam-studio/ekam-commons.git'
+                url 'https://github.com/testvagrant/ekam-config'
+                connection 'https://github.com/testvagrant/ekam-config.git'
+                developerConnection 'git@github.com:testvagrant/ekam-config.git'
             }
             developers {
                 developer {
@@ -143,25 +171,11 @@ model {
     }
 }
 
+task runTests(type: Test) {
+    useTestNG()
+}
+
+
 signing {
     sign publishing.publications
-}
-
-task fatJar(type: Jar) {
-    manifest {
-        attributes 'Manifest-Version': '1.0', 'Implementation-Title': 'xyz', 'Implementation-Version': version
-    }
-    from {
-        configurations.testRuntime.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-    into 'resources', {
-        from sourceSets.test.resources
-    }
-    from sourceSets.test.output
-}
-
-task testJar(type: com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar) {
-    archiveClassifier.set("alltests")
-    from sourceSets.main.output, sourceSets.test.output
-    configurations = [project.configurations.testRuntimeClasspath]
 }
