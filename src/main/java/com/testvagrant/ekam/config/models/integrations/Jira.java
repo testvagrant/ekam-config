@@ -6,7 +6,7 @@ import java.util.Properties;
 
 // TODO: Use for Zephyr Integration
 public class Jira extends Config {
-    public Jira(Properties properties) {
-        super(properties);
-    }
+  public Jira(Properties properties) {
+    super(properties);
+  }
 }

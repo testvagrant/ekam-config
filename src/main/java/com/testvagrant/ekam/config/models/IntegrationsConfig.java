@@ -12,20 +12,20 @@ import java.util.Properties;
 @Setter
 public class IntegrationsConfig extends Config {
 
-    @Inject(optional = true)
-    private Slack slack;
+  @Inject(optional = true)
+  private Slack slack;
 
-    @Inject(optional = true)
-    private Jira jira;
+  @Inject(optional = true)
+  private Jira jira;
 
-    public IntegrationsConfig(Properties properties) {
-        super(properties);
-        this.slack = new Slack(properties);
-        this.jira = new Jira(properties);
-    }
+  public IntegrationsConfig(Properties properties) {
+    super(properties);
+    this.slack = new Slack(properties);
+    this.jira = new Jira(properties);
+  }
 
-    @Override
-    public String toString() {
-        return "{" + "\"slack\":" + slack + ", \"jira\":" + jira + "}";
-    }
+  @Override
+  public String toString() {
+    return "{" + "\"slack\":" + slack + ", \"jira\":" + jira + "}";
+  }
 }
