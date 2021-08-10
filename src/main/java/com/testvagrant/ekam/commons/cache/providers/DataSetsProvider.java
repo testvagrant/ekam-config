@@ -5,12 +5,14 @@ import com.testvagrant.ekam.commons.cache.DataSetsCache;
 import com.testvagrant.ekam.commons.io.DirectoryFinder;
 import com.testvagrant.ekam.commons.io.FileFinder;
 import com.testvagrant.ekam.commons.io.GsonParser;
-import com.testvagrant.ekam.commons.io.ResourcePaths;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
@@ -37,14 +39,14 @@ public class DataSetsProvider {
   public DataSetsCache load() {
     DataSetsCache dataSetsCache = new DataSetsCache();
     String env = System.getProperty(DATASETS.DATASETS_ENV, System.getProperty("env", ""));
-    Optional<String> dataSetsPathOptional = new DirectoryFinder().find(System.getProperty(DATASETS.DIR));
-    String dataSetsPath = dataSetsPathOptional.orElseThrow(() -> new RuntimeException("Cannot find datasets directory " + DATASETS.DIR));
-    List<File> fileList = new FileFinder(dataSetsPath, env)
-            .findWithExtension(".json");
+    Optional<String> dataSetsPathOptional =
+        new DirectoryFinder().find(System.getProperty(DATASETS.DIR));
+    String dataSetsPath =
+        dataSetsPathOptional.orElseThrow(
+            () -> new RuntimeException("Cannot find datasets directory " + DATASETS.DIR));
+    List<File> fileList = new FileFinder(dataSetsPath, env).findWithExtension(".json");
 
-    fileList
-            .stream().parallel()
-            .forEach(file -> transform(dataSetsCache, file));
+    fileList.stream().parallel().forEach(file -> transform(dataSetsCache, file));
 
     return dataSetsCache;
   }

@@ -9,7 +9,6 @@ import com.testvagrant.ekam.commons.io.ResourcePaths;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -36,12 +35,11 @@ public class LocaleProvider {
   public LocaleCache load() {
     String env = System.getProperty(Locale.LOCALE_ENV, System.getProperty("env", ""));
     List<File> files = new ArrayList<>();
-//    Arrays.stream(ResourcePaths.RESOURCES).parallel().forEach(resource -> {
-//
-//    });
+    //    Arrays.stream(ResourcePaths.RESOURCES).parallel().forEach(resource -> {
+    //
+    //    });
     String localeDir = ResourcePaths.getPath(ResourcePaths.ROOT, ResourcesConfigKeys.Locale.DIR);
-    List<File> fileList = new FileFinder(localeDir, env)
-            .findWithExtension(".json");
+    List<File> fileList = new FileFinder(localeDir, env).findWithExtension(".json");
     files.addAll(fileList);
 
     GsonParser gsonParser = new GsonParser();

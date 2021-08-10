@@ -7,10 +7,10 @@ import java.util.Optional;
 
 public class DirectoryFinder {
 
+  List<String> directories;
   private boolean fileFound;
   private File fileToSearch;
   private String directoryName;
-  List<String> directories;
 
   public DirectoryFinder() {
     this.directories = new ArrayList<>();
