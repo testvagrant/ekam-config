@@ -4,16 +4,15 @@ import java.util.Properties;
 
 public class DataSetsConfig extends Config {
   private final String dir;
-  private final int cacheSize;
 
   public DataSetsConfig(Properties properties) {
     super(properties);
     this.dir = setProperty(ConfigKeys.DATASETS.DIR, "");
-    this.cacheSize = Integer.parseInt(setProperty(ConfigKeys.DATASETS.CACHE_SIZE, "500"));
+    setProperty(ConfigKeys.DATASETS.CACHE_SIZE, "");
   }
 
   @Override
   public String toString() {
-    return "DataSetsConfig{" + "dir='" + dir + '\'' + ", cacheSize=" + cacheSize + '}';
+    return "DataSetsConfig{" + "dir='" + dir + '\'' + '}';
   }
 }
