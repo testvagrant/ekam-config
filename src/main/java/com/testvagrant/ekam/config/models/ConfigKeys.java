@@ -37,6 +37,7 @@ public class ConfigKeys {
 
   public static class DATASETS {
     public static final String DIR = "datasets.dir";
+    public static final String CACHE_SIZE = "datasets.cache.size";
   }
 
   public static class Cloud {
