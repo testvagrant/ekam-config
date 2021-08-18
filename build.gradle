@@ -97,8 +97,8 @@ def customizePom(pom) {
             name 'Ekam Config'
             url 'https://github.com/testvagrant/ekam-config'
             organization {
-                name 'com.testvagrant.optimus'
-                url 'https://github.com/testvagrant/ekam-config'
+                name 'com.testvagrant.ekam'
+                url 'https://github.com/testvagrant'
             }
             issueManagement {
                 system 'GitLab'
