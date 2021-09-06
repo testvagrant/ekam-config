@@ -1,7 +1,7 @@
 # Ekam Config ![Ekam Config](https://github.com/testvagrant/ekam-config/actions/workflows/ekam-config.yml/badge.svg)
 [Ekam home](https://ekam.testvagrant.ai/) | [Documentation](https://ekam.testvagrant.ai/docs/setup/ekam_setup/)
 
-Ekam Config as the name sugges is a core configuration library for ekam.
+Ekam Config as the name suggests is a core configuration library for ekam.
 
 The core functionalities include
 * Default Properties
