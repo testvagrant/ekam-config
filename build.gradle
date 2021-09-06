@@ -55,7 +55,7 @@ publishing {
             customizePom(pom)
             groupId 'com.testvagrant.ekam'
             artifactId 'ekam-config'
-            version '1.0.2'
+            version '1.0.3'
 
             from components.java
 
@@ -99,8 +99,8 @@ def customizePom(pom) {
             name 'Ekam Config'
             url 'https://github.com/testvagrant/ekam-config'
             organization {
-                name 'com.testvagrant.optimus'
-                url 'https://github.com/testvagrant/ekam-config'
+                name 'com.testvagrant.ekam'
+                url 'https://github.com/testvagrant'
             }
             issueManagement {
                 system 'GitLab'
