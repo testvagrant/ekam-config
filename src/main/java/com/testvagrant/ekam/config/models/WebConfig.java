@@ -22,7 +22,7 @@ public class WebConfig extends Config {
     this.headless = setProperty(ConfigKeys.Web.HEADLESS, false);
     this.launchUrl = setProperty(ConfigKeys.Web.URL, "");
     this.hub = setProperty(ConfigKeys.Web.HUB, "");
-    this.logConsoleErrors = setProperty(ConfigKeys.Web.LOG_CONSOLE, true);
+    this.logConsoleErrors = setProperty(ConfigKeys.Web.LOG_CONSOLE, false);
   }
 
   public boolean isAny() {
