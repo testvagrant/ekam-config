@@ -1,5 +1,5 @@
 # Ekam Config ![Ekam Config](https://github.com/testvagrant/ekam-config/actions/workflows/ekam-config.yml/badge.svg)
-[Ekam home](https://ekam.testvagrant.ai/) | [Documentation](https://ekam.testvagrant.ai/docs/setup/ekam_setup/)
+[Ekam home](https://ekam.studio/) | [Documentation](https://docs.ekam.studio/docs/setup/getting_started/)
 
 Ekam Config as the name suggests is a core configuration library for ekam.
 
@@ -59,6 +59,18 @@ The core functionalities include
 |**Property Key**| **Default Value** | **Supported Values** | **Description** |
 |------------|---------------|------------------|--------------|
 | **cloud.config.dir**   | cloud_config            | Any custom directory name| Directory name where cloud configuration are created|
+
+### Cache
+|**Property Key**| **Default Value** | **Supported Values** | **Description** |
+|------------|---------------|------------------|--------------|
+|**browserstack.cache.lock**|true                  |Boolean          |Cache lock while running the tests|
+|**cache.time**|4                                  |int               |Age of cache|
+|**cache.size**|1000                               |double            |Size of the cache|
+
+### Reporting
+|**Property Key**| **Default Value** | **Supported Values** | **Description** |
+|------------|---------------|------------------|--------------|
+|**timeline**|true           | Boolean          |Takes screenshots at each step if its true|
 
 ### Dashboard
 |**Property Key**| **Default Value** | **Supported Values** | **Description** |
