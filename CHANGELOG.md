@@ -1,3 +1,7 @@
+### 1.0.4
+* Upgraded Dependencies
+
+
 ### 1.0.3
 
 * Remove EkamConfigModule
